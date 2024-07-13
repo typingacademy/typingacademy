@@ -1,9 +1,5 @@
 export interface IAuthenticationService {
-  loginUser(
-    userName: string,
-    password: string,
-    role: "institute" | "student" | "admin"
-  ): Promise<string>;
+  loginUser(userName: string, password: string): Promise<string>;
 
   logoutUser(
     accessToken: string,

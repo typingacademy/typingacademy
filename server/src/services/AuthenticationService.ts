@@ -14,20 +14,17 @@ export class AuthenticationService implements IAuthenticationService {
     this.repository = repository;
   }
 
-  loginUser(
-    userName: string,
-    password: string,
-    role: "institute" | "student" | "admin"
-  ): Promise<string> {
-    console.log("login", { userName, password, role });
-    return Promise.resolve("Success");
+  async loginUser(userName: string, password: string): Promise<string> {
+    const token = await this.repository.login(userName, password);
+    return token;
   }
 
-  logoutUser(
+  async logoutUser(
     accessToken: string,
     role: "institute" | "student" | "admin"
   ): Promise<void> {
-    console.log("login", { accessToken, role });
-    return Promise.resolve();
+    const shouldGlobalReset = role === "institute";
+    await this.repository.logout(accessToken, shouldGlobalReset);
+    return;
   }
 }

@@ -1,19 +1,18 @@
-import { Pool } from "pg";
-import dotenv from "dotenv";
+import { config } from "dotenv";
+import { createClient } from "@supabase/supabase-js";
+import type { Client, Database } from "./types";
 
-dotenv.config();
+config();
 
-let client: Pool;
+let client: Client;
 
-export const pgClient = (): Pool => {
+export const dbClient = (): Client => {
+  // Create a single supabase client for interacting with database
   if (!client) {
-    client = new Pool({
-      host: process.env.DB_HOST,
-      port: parseInt(`${process.env.DB_PORT}`),
-      user: process.env.DB_USER,
-      password: process.env.DB_PASSWORD,
-      database: process.env.DB_NAME,
-    });
+    client = createClient<Database>(
+      process.env.DB_URL as string,
+      process.env.DB_ACCESS_TOKEN as string
+    );
   }
   return client;
 };

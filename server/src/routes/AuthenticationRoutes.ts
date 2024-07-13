@@ -27,7 +27,7 @@ const controller = container.get<AuthenticationController>(
   INTERFACE_TYPE.AuthenticationController
 );
 
-router.get("/login", controller.onLoginUser.bind(controller));
-router.get("/logout", controller.onLogoutUser.bind(controller));
+router.post("/login", controller.onLoginUser.bind(controller));
+router.post("/logout", controller.onLogoutUser.bind(controller));
 
 export default router;

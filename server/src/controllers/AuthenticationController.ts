@@ -16,26 +16,23 @@ export class AuthenticationController {
 
   async onLoginUser(req: Request, res: Response, next: NextFunction) {
     try {
-      const { userName, password, role } = req?.body || {};
-      const accessToken = await this.service.loginUser(
-        userName,
-        password,
-        role
-      );
-      return res.status(200).json({ accessToken });
+      const { userName, password } = req?.body || {};
+      const accessToken = await this.service.loginUser(userName, password);
+      return res.status(200).send({ accessToken });
     } catch (error) {
       next(error);
+      return res.status(500).send({ error });
     }
   }
 
   async onLogoutUser(req: Request, res: Response, next: NextFunction) {
     try {
       const { accessToken, role } = req?.body || {};
-
-      const data = await this.service.logoutUser(accessToken, role);
-      return res.status(200).json(data);
+      await this.service.logoutUser(accessToken, role);
+      return res.status(200);
     } catch (error) {
       next(error);
+      return res.status(500).send({ error });
     }
   }
 }
