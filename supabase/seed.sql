@@ -118,8 +118,8 @@ SET row_security = off;
 -- Data for Name: test; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO "public"."test" ("id", "created_at", "userId", "password") VALUES
-	(1, '2024-07-13 14:31:32.099868+00', 'Test', 'test@123');
+INSERT INTO "public"."test" ("id", "created_at", "userId", "password", "name") VALUES
+	(1, '2024-07-13 19:07:58.930624+00', 'dump', 'dump@123', 'Test First Dump');
 
 
 --
